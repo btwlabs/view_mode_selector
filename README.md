@@ -2,8 +2,7 @@
 
 Current Maintainers:
 
-* [yannickoo](https://www.drupal.org/u/yannickoo)
-* [axe312](https://www.drupal.org/u/axe312)
+BTW LABS ;)
 
 View Mode Selector creates a new field type called *View Mode Selector* which
 will override the view mode of an entity.
