@@ -1,7 +1,8 @@
 {
     "name": "btw_labs/view_mode_selector",
     "description": "Our forked version of the view_mode_selector drupal contrib module.",
-    "minimum-stability": "dev",
+    "type": "drupal-module",
+    "minimum-stability": "stable",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
