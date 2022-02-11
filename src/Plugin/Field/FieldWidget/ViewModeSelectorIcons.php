@@ -79,7 +79,6 @@ class ViewModeSelectorIcons extends ViewModeSelectorRadios {
       $output = [];
 
       if (!empty($icon = $settings['view_modes'][$view_mode]['icon'])) {
-
         $render = [
           '#type' => 'html_tag',
           '#tag' => 'img',
@@ -88,7 +87,6 @@ class ViewModeSelectorIcons extends ViewModeSelectorRadios {
             'src' => $icon
           ]
         ];
-
         $output[] = $this->renderer->render($render);
       }
       else {
