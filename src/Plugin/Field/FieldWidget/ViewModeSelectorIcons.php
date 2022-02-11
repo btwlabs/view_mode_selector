@@ -92,7 +92,9 @@ class ViewModeSelectorIcons extends ViewModeSelectorRadios {
         $output[] = $this->renderer->render($render);
       }
       else {
+
         $element['value'][$view_mode]['#attributes']['class'][] = 'no-preview';
+
       }
 
       if (!$settings['view_modes'][$view_mode]['hide_title']) {
