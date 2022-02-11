@@ -93,36 +93,32 @@ class ViewModeSelectorItem extends FieldItemBase {
         '#default_value' => isset($settings['view_modes'][$view_mode_id]) && $settings['view_modes'][$view_mode_id]['enable'] ?: FALSE,
       ];
 
-      // Allow uploading an icon and hide the title for view modes when radio widget is used.
-//      if ($instance['widget']['type'] == 'view_mode_selector_radios') {
-        $element['view_modes'][$view_mode_id]['prefix']['#markup'] = '<div class="settings">';
+      $element['view_modes'][$view_mode_id]['prefix']['#markup'] = '<div class="settings">';
 
-        $element['view_modes'][$view_mode_id]['hide_title'] = [
-          '#type' => 'checkbox',
-          '#title' => t('Hide title'),
-          '#default_value' => isset($settings['view_modes'][$view_mode_id]) && $settings['view_modes'][$view_mode_id]['hide_title'] ?: FALSE,
-          '#states' => [
-            'visible' => [
-              'input[name="field[settings][view_modes][' . $view_mode_id . '][enable]"]' => ['checked' => TRUE],
-            ],
-          ]
-        ];
-
-        $element['view_modes'][$view_mode_id]['icon'] = [
-          '#type' => 'managed_file',
-          '#title' => t('Icon'),
-          '#description' => t('An icon which can be used for a view mode preview.'),
-          '#upload_location' => 'public://view-mode-selector/' . $entity_type,
-          '#default_value' => isset($settings['view_modes'][$view_mode_id]) && $settings['view_modes'][$view_mode_id]['icon'] ?: 0,
-          '#hide' => TRUE,
-          '#states' => [
-            'visible' => [
-              'input[name="field[settings][view_modes][' . $view_mode_id . '][enable]"]' => ['checked' => TRUE],
-            ],
+      $element['view_modes'][$view_mode_id]['hide_title'] = [
+        '#type' => 'checkbox',
+        '#title' => t('Hide title'),
+        '#default_value' => isset($settings['view_modes'][$view_mode_id]) && $settings['view_modes'][$view_mode_id]['hide_title'] ?: FALSE,
+        '#states' => [
+          'visible' => [
+            'input[name="field[settings][view_modes][' . $view_mode_id . '][enable]"]' => ['checked' => TRUE],
           ],
-        ];
-        $element['view_modes'][$view_mode_id]['suffix']['#markup'] = '</div>';
-//      }
+        ]
+      ];
+
+      $element['view_modes'][$view_mode_id]['icon'] = [
+        '#type' => 'textfield',
+        '#title' => t('Icon'),
+        '#description' => t('An icon which can be used for a view mode preview.'),
+        '#default_value' => (isset($settings['view_modes'][$view_mode_id]) && $settings['view_modes'][$view_mode_id]['icon']) ? $settings['view_modes'][$view_mode_id]['icon'] : '',
+        '#states' => [
+          'visible' => [
+            'input[name="field[settings][view_modes][' . $view_mode_id . '][enable]"]' => ['checked' => TRUE],
+          ],
+        ],
+      ];
+      $element['view_modes'][$view_mode_id]['suffix']['#markup'] = '</div>';
+
     }
     return $element;
   }

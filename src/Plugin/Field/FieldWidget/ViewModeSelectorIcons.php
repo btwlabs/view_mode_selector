@@ -78,62 +78,23 @@ class ViewModeSelectorIcons extends ViewModeSelectorRadios {
 
       $output = [];
 
-      if (!empty($settings['view_modes'][$view_mode]['icon'][0])) {
-        /** @var FileInterface $icon */
-        $icon = $this->entityTypeManager->getStorage('file')->load($settings['view_modes'][$view_mode]['icon'][0]);
-
-        if (!$icon) {
-          continue;
-        }
+      if (!empty($icon = $settings['view_modes'][$view_mode]['icon'])) {
 
         $render = [
-          '#theme' => 'image',
-          '#uri' => $icon->getFileUri(),
-          '#alt' => t('Sample original image'),
-          '#title' => $this->viewModes[$view_mode],
+          '#type' => 'html_tag',
+          '#tag' => 'img',
+          '#attributes' => [
+            'class' => ['view-mode-icon'],
+            'src' => $icon
+          ]
         ];
 
         $output[] = $this->renderer->render($render);
       }
-      /*
-      elseif (\Drupal::moduleHandler()->moduleExists('ds') && isset($ds_view_modes[$view_mode])) {
-        $field = $items->getFieldDefinition();
-        $entity_type = $field->getTargetEntityTypeId();
-        $bundle = $field->getTargetBundle();
-
-        // When Display Suite is installed we can show a nice preview.
-        // @todo integrate with DS regions
-        $layout = $ds_view_modes[$view_mode]['layout'];
-
-        // Create a new empty entity for the preview.
-        $entity_properties = ['type' => $entity_bundle, 'id' => FALSE];
-        $entity = entity_create($entity_type, $entity_properties);
-        $entity_view = entity_view($entity_type, [$entity], $view_mode);
-
-        // Render one field containing a placeholder <div> in every region.
-        foreach ($layout['settings']['regions'] as $region_settings) {
-          foreach ($region_settings as $field) {
-            $entity_view[$entity_type][0][$field] = [
-              '#type' => 'html_tag',
-              '#tag' => 'div',
-              '#value' => '',
-              '#attributes' => ['class' => 'placeholder'],
-              '#field_name' => $field,
-            ];
-
-            continue;
-          }
-        }
-
-        // Disable contextual links.
-        $entity_view[$entity_type][0]['#contextual_links'] = FALSE;
-
-        // Render the preview.
-        $output[] = drupal_render($entity_view);
-      }
-      */
       else {
+
         $element['value'][$view_mode]['#attributes']['class'][] = 'no-preview';
+
       }
 
       if (!$settings['view_modes'][$view_mode]['hide_title']) {
